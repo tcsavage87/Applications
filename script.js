@@ -16,12 +16,10 @@ clearButton.addEventListener('click', reset);
 function operate(e) {
   const operand = e.target.dataset.operand;
   console.log(operand);
-  let num1;
-  let num2;
-  [num1, num2] = [parseInt(input1.value), parseInt(input2.value)];
-  console.log(num1, num2);
+  let [num1, num2] = [parseFloat(input1.value), parseFloat(input2.value)];
+  // Check it both number fields contain numbers
   if (!num1 || !num2) {
-    header.textContent = 'Please input two numbers!';
+    header.textContent = 'Please input both numbers!';
     return;
   }
   const total = eval(`${num1}${operand}${num2}`);
