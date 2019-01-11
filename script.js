@@ -1,42 +1,39 @@
 let total = 0;
-let numberInput1 = document.querySelector('#numberInput1');
-let numberInput2 = document.querySelector('#numberInput2');
+let input1 = document.querySelector('#numberInput1');
+let input2 = document.querySelector('#numberInput2');
 let header = document.querySelector('#screen');
+let operators = document.querySelectorAll('.operator');
+let clearButton = document.querySelector('#clear');
+let form = document.querySelector('form');
 
 function reset() {
-  numberInput2.value = '';
+  form.reset();
+  header.textContent = 'Ready to Calculate!';
 }
 
-function add() {
-  total = eval(numberInput1.value) + eval(numberInput2.value);
-  header.innerHTML = total;
-  numberInput1.value = total;
-  reset();
+clearButton.addEventListener('click', reset);
+
+function operate(e) {
+  const operand = e.target.dataset.operand;
+  console.log(operand);
+  let num1;
+  let num2;
+  [num1, num2] = [parseInt(input1.value), parseInt(input2.value)];
+  console.log(num1, num2);
+  if (!num1 || !num2) {
+    header.textContent = 'Please input two numbers!';
+    return;
+  }
+  const total = eval(`${num1}${operand}${num2}`);
+  header.textContent = `The total is ${total}`;
+  input1.value = total;
+  input2.value = '';
+
 }
 
-function subtract() {
-  total = eval(numberInput1.value) - eval(numberInput2.value);
-  header.innerHTML = total;
-  numberInput1.value = total;
-  reset();
-}
-
-function multiply() {
-  total = eval(numberInput1.value) * eval(numberInput2.value);
-  header.innerHTML = total;
-  numberInput1.value = total;
-  reset();
-}
-
-function divide() {
-  total = eval(numberInput1.value) / eval(numberInput2.value);
-  header.innerHTML = total;
-  numberInput1.value = total;
-  reset();
-}
-
-function empty() {
-  total = 0;
-  document.querySelector('#screen').innerHTML = 'Ready to Calculate!';
-  numberInput1.value = '';
-}
+operators.forEach(operator => {
+  operator.addEventListener('click', function(e) {
+    e.preventDefault();
+    operate(e);
+  });
+})
