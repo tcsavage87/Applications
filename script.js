@@ -1,110 +1,82 @@
-let today = new Date();
+// Button and display retrieval from document
 
-let monthBtn = document.querySelector("#month");
-let dateBtn = document.querySelector("#date");
-let yearBtn = document.querySelector("#year");
-let timeBtn = document.querySelector("#time");
-let fullBtn = document.querySelector("#full-date");
-let display = document.querySelector("#headline");
+const monthBtn = document.querySelector("#month");
+const dateBtn = document.querySelector("#date");
+const yearBtn = document.querySelector("#year");
+const timeBtn = document.querySelector("#time");
+const fullBtn = document.querySelector("#full-date");
+const display = document.querySelector("#headline");
 
-let month = today.getMonth() + 1;
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-let monthTitle = "";
+// Month function and event listener for Month button
 
-let day = today.getDate();
-
-let dayTitle = "";
-
-let year = today.getFullYear();
-
-switch (month) {
-  case 1:
-    monthTitle = "January";
-    break;
-  case 2:
-    monthTitle = "February";
-    break;
-  case 3:
-    monthTitle = "March";
-    break;
-  case 4:
-    monthTitle = "April";
-    break;
-  case 5:
-    monthTitle = "May";
-    break;
-  case 6:
-    monthTitle = "June";
-    break;
-  case 7:
-    monthTitle = "July";
-    break;
-  case 8:
-    monthTitle = "August";
-    break;
-  case 9:
-    monthTitle = "September";
-    break;
-  case 10:
-    monthTitle = "October";
-    break;
-  case 11:
-    monthTitle = "November";
-    break;
-  case 12:
-    monthTitle = "December";
-    break;
-  default:
-    monthTitle = "Error!";
+function convertMonth() {
+  const today = new Date();
+  // Pass month value into monthNames array to retrieve full name
+  const month = monthNames[today.getMonth()];
+  console.log(month);
+  display.textContent = `The month is ${month}!`;
 }
 
-if (day === 1 || day === 21 || day === 31) {
-  dayTitle = day + "st";
-} else if (day === 2 || day === 22) {
-  dayTitle = day + "nd";
-} else if (day === 3 || day === 23) {
-  dayTitle = day + "rd";
-} else {
-  dayTitle = day + "th";
+monthBtn.addEventListener('click', convertMonth);
+
+// Year function and event listener
+
+function getYear() {
+  const today = new Date();
+  const year = today.getFullYear();
+  display.textContent = `The year is ${year}`;
 }
 
-monthBtn.onclick = function() {
-  display.innerHTML = `The month is ${monthTitle}`;
-};
+yearBtn.addEventListener('click', getYear);
 
-dateBtn.onclick = function() {
-  display.innerHTML = `Today is the ${dayTitle} of the month`;
-};
+// Full date function and event listener
 
-yearBtn.onclick = function() {
-  display.innerHTML = `The year is ${year}`;
-};
+function getFullDate() {
+  const now = new Date();
+  display.textContent = `It is currently ${now}`;
+}
 
-timeBtn.onclick = function() {
-  let currentTime = new Date();
-  let hours = currentTime.getHours();
-  let minutes = currentTime.getMinutes();
+fullBtn.addEventListener('click', getFullDate);
 
-  if (minutes < 10) {
-    minutes = "0" + minutes;
+function getDate() {
+  const today = new Date();
+  let day = today.getDate();
+  const first = RegExp('1$');
+  const second = RegExp('2$');
+  const third = RegExp('3$');
+  const tenth = RegExp('0$');
+  if (first.test(day)) {
+    day = `${day}st`;
+  } else if (second.test(day)) {
+    day = `${day}nd`;
+  } else if (third.test(day)) {
+    day = `${day}rd`;
+  } else if (tenth.test(day)) {
+    day = `${day}th`;
   }
+  display.textContent = `Today is the ${day} day of the month`;
+}
 
-  let fullTime = "";
+dateBtn.addEventListener('click', getDate);
 
+function getTime() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const convertedMinutes = minutes < 10 ? `0${minutes}` : minutes;
   if (hours > 12) {
-    fullTime = `${hours - 12}:${minutes} PM`;
+    fullTime = `${hours - 12}:${convertedMinutes} PM`;
   } else if (hours === 0) {
-    fullTime = `${hours + 12}:${minutes} AM`;
+    fullTime = `${hours + 12}:${convertedMinutes} AM`;
   } else if (hours === 12) {
-    fullTime = `${hours}:${minutes} PM`;
+    fullTime = `${hours}:${convertedMinutes} PM`;
   } else {
-    fullTime = `${hours}:${minutes} AM`;
+    fullTime = `${hours}:${convertedMinutes} AM`;
   }
+  display.textContent = `The time is ${fullTime}`;
+}
 
-  display.innerHTML = `The time is ${fullTime}`;
-};
+timeBtn.addEventListener('click', getTime);
 
-fullBtn.onclick = function() {
-  let rightNowDate = new Date();
-  display.innerHTML = `It is ${rightNowDate}`;
-};
