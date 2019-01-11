@@ -1,45 +1,47 @@
 const clearButton = document.querySelector('#clear');
 const numbers = document.querySelectorAll('.number');
 const screen = document.querySelector('#screen');
-const operators = document.querySelectorAll('.operator');
 const equalButton = document.querySelector('#equals')
+const regex = new RegExp(/[0-9]/);
 
+// Create flag to reset screen if number input after equation run
 
-// Clear button functionality - 
+let equalFlag = false;
 
-clearButton.addEventListener('click', () => screen.textContent = '');
+// Clear button functionality
+
+function clear() {
+  screen.textContent = '';
+} 
 
 // Display numeric input on number button click
 
-function display(e) {
-  const input = e.target.dataset.number;
+function display() {
+  const input = this.dataset.number;
+  let isNumber;
+  if (regex.test(input) || input.includes('.')) {
+    isNumber = true;
+  }
+  if (equalFlag && isNumber) {
+    clear();
+  }
   screen.textContent += input;
+  equalFlag = false;
 }
-
-numbers.forEach(number => {
-  number.addEventListener('click', function(e) {
-    e.preventDefault();
-    display(e);
-  });
-});
-
-// Include operator on display when clicked
-
-function store(e) {
-  const operator = e.target.dataset.operand;
-  screen.textContent += operator;
-}
-
-operators.forEach(operator => {
-  operator.addEventListener('click', function(e) {
-    e.preventDefault();
-    store(e);
-  });
-});
 
 // Equals button functionality - Display total when clicked
 
-equalButton.addEventListener('click', function(e) {
-  e.preventDefault();
-  screen.textContent = eval(screen.textContent);
-})
+equalButton.addEventListener('click', () => {
+  try {
+    screen.textContent = eval(screen.textContent);
+    equalFlag = true;
+  } catch (e) {
+    console.error(e);
+    screen.textContent = 'ERROR';
+    equalFlag = true;
+  }
+});
+
+clearButton.addEventListener('click', clear);
+
+numbers.forEach(number => number.addEventListener('click', display));
