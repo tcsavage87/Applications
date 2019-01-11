@@ -66,14 +66,13 @@ function getTime() {
   const hours = now.getHours();
   const minutes = now.getMinutes();
   const convertedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  if (hours > 12) {
-    fullTime = `${hours - 12}:${convertedMinutes} PM`;
-  } else if (hours === 0) {
-    fullTime = `${hours + 12}:${convertedMinutes} AM`;
+
+  if (hours > 0 && hours < 12) {
+    fullTime = `${hours}:${convertedMinutes} AM`;
   } else if (hours === 12) {
     fullTime = `${hours}:${convertedMinutes} PM`;
   } else {
-    fullTime = `${hours}:${convertedMinutes} AM`;
+    hours > 12 ? fullTime = `${hours - 12}:${convertedMinutes} PM` : fullTIme = `${hours + 12}:${convertedMinutes} AM`;
   }
   display.textContent = `The time is ${fullTime}`;
 }
