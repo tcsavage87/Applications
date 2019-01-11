@@ -1,37 +1,45 @@
-let total = 0;
-let input1 = document.querySelector('#numberInput1');
-let input2 = document.querySelector('#numberInput2');
-let header = document.querySelector('#screen');
-let operators = document.querySelectorAll('.operator');
-let clearButton = document.querySelector('#clear');
-let form = document.querySelector('form');
+const clearButton = document.querySelector('#clear');
+const numbers = document.querySelectorAll('.number');
+const screen = document.querySelector('#screen');
+const operators = document.querySelectorAll('.operator');
+const equalButton = document.querySelector('#equals')
 
-function reset() {
-  form.reset();
-  header.textContent = 'Ready to Calculate!';
+
+// Clear button functionality - 
+
+clearButton.addEventListener('click', () => screen.textContent = '');
+
+// Display numeric input on number button click
+
+function display(e) {
+  const input = e.target.dataset.number;
+  screen.textContent += input;
 }
 
-clearButton.addEventListener('click', reset);
+numbers.forEach(number => {
+  number.addEventListener('click', function(e) {
+    e.preventDefault();
+    display(e);
+  });
+});
 
-function operate(e) {
-  const operand = e.target.dataset.operand;
-  console.log(operand);
-  let [num1, num2] = [parseFloat(input1.value), parseFloat(input2.value)];
-  // Check it both number fields contain numbers
-  if (!num1 || !num2) {
-    header.textContent = 'Please input both numbers!';
-    return;
-  }
-  const total = eval(`${num1}${operand}${num2}`);
-  header.textContent = `The total is ${total}`;
-  input1.value = total;
-  input2.value = '';
+// Include operator on display when clicked
 
+function store(e) {
+  const operator = e.target.dataset.operand;
+  screen.textContent += operator;
 }
 
 operators.forEach(operator => {
   operator.addEventListener('click', function(e) {
     e.preventDefault();
-    operate(e);
+    store(e);
   });
+});
+
+// Equals button functionality - Display total when clicked
+
+equalButton.addEventListener('click', function(e) {
+  e.preventDefault();
+  screen.textContent = eval(screen.textContent);
 })

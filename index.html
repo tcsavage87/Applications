@@ -10,9 +10,9 @@
   </head>
   
   <body>
-    <h1 id="screen">Ready to Calculate!</h1>
-    <h3>Enter your numbers, then select an operator</h3>
-    <form>
+    <h1 id="header">Ready to Calculate!</h1>
+    <div id="calculator">
+    <div id="screen"></div>
       <div id="row1">
         <button class="number" data-number="7">7</button>
         <button class="number" data-number="8">8</button>
@@ -40,9 +40,10 @@
         <button id="equals" data-operand="=">=</button>
         <button class="operator" data-operand="+">+</button>
       </div>
-      <br>
-      <button id="clear">Clear</button>
-    </form>
+      <div id="row5">
+        <button id="clear">Clear</button>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
   
