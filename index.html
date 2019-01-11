@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Simple Calculator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  
+  <body>
+    <h1 id="screen">Ready to Calculate!</h1>
+    <h3>Enter your numbers, then select an operator</h3>
+    <input id="numberInput1" type="number" placeholder="Your Number"/>
+    <div id="row1">
+    <button class="row1" id="add" onclick="add()">+</button>
+    <button class="row1" id="subtract" onclick="subtract()">-</button>
+    </div>
+    
+    <div id="row2">
+    <button class="row2" id="multiply" onclick="multiply()">X</button>
+    <button class="row2" id="divide" onclick="divide()">/</button>
+    </div>
+    <input id="numberInput2" type="number" placeholder="Your Number"/>
+    <br>
+    <button id="clear" onclick="empty()">Clear</button>
+    <script src="script.js"></script>
+  </body>
+  
+  
+</html>
