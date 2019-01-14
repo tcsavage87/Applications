@@ -5,7 +5,7 @@
 
 html, body {
   text-align: center;
-  background-color: lightgray;
+  background-color: white;
 }
 
 h1 {
@@ -15,6 +15,7 @@ h1 {
 #calculator {
   width: 45%;
   margin: 0 auto;
+  background-color: lightgrey;
   border: 2px solid black;
   border-radius: 10px;
   padding: 15px;
