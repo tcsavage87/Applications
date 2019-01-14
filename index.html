@@ -13,14 +13,28 @@
 		<tr id="wordRow">
 		</tr>
 	</table>
-	<button id="headButton">Draw Head</button>
-	<button id="torsoButton">Draw Torso</button>
-	<button id="armButton">Draw Arm</button>
-	<button id="legButton">Draw Leg</button>
-	<form name="letterInput" id="letterForm">
-		<input type="text" name="letter" placeholder="Guess a letter!">
-		<button id="guessLetter">Guess</button>
-	</form>
+	<div id="buttons">
+		<button id="headButton">Draw Head</button>
+		<button id="torsoButton">Draw Torso</button>
+		<button id="armButton">Draw Arm</button>
+		<button id="legButton">Draw Leg</button>
+	</div>
+	<div id="guesses">
+		<form name="letterInput" id="letterForm">
+			<label for="guess" id="guessPrompt">Guess a letter!</label>
+			<input id="guess" type="text" name="letter">
+			<button id="guessButton">Guess</button>
+		</form>
+		<table class="guessedLetters">
+			<thead>
+				<tr id="guessHeader" colspan="1">
+					<th>Guessed Letters</th>
+				</tr>
+			</thead>
+			<tr id="guessRow">
+			</tr>
+		</table>
+	</div>
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

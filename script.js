@@ -5,6 +5,23 @@ const torsoButton = document.querySelector('#torsoButton');
 const armButton = document.querySelector('#armButton');
 const legButton = document.querySelector('#legButton');
 
+// Guesses
+
+const guessButton = document.querySelector('#guessButton');
+const guessInput = document.querySelector('#guess');
+const regex = new RegExp(/[A-Z]/);
+
+const header = document.querySelector('#guessHeader');
+const guessRow = document.querySelector('#guessRow')
+
+const guesses = [];
+
+//console.log(header[colspan])
+
+// Word Blanks
+
+const blankRow = document.querySelector('#wordRow');
+
 // Hangman contingency flags
 
 let headDrawn = false;
@@ -84,6 +101,48 @@ function drawLegs() {
 	}
 }
 
+// Build out blanks and assign word
+
+const words = ['dog', 'cat', 'boy', 'girl'];
+let randomWord = words[Math.floor(Math.random() * words.length)];
+console.log(randomWord.split(''));
+for (let i = 0; i < randomWord.length; i++) {
+	console.log(randomWord[i]);
+	let blank = document.createElement('td');
+}
+
+// Retrieve User Guess Input
+
+function retrieveLetter() {
+	let label = document.querySelector('label');
+	label.classList.remove('alert');
+	label.textContent = 'Guess a letter!';
+	let letter = guessInput.value.toUpperCase();
+
+	// Validate input as alpha
+	if (!regex.test(letter) || letter.length > 1) {
+		label.textContent = 'One Letter Only Please!';
+		label.classList.add('alert');
+		guessInput.value = '';
+		return;
+	}
+
+	// Validate input as new 
+	if (guesses.includes(letter)) {
+		label.textContent = 'New Letters Only Please!';
+		label.classList.add('alert');
+		guessInput.value = '';
+		return;
+	}
+	guesses.push(letter);
+	console.log(guesses);
+	guessInput.value = '';
+
+	// Add guess to table
+	let guess = document.createElement('td');
+	guessRow.appendChild(guess);
+	guess.textContent = letter;
+}
 
 // Drawing button Event listeners
 
@@ -92,4 +151,9 @@ torsoButton.addEventListener('click', drawTorso);
 armButton.addEventListener('click', drawArms);
 legButton.addEventListener('click', drawLegs);
 
+// Guess button listener
 
+guessButton.addEventListener('click', function(e) {
+	e.preventDefault();
+	retrieveLetter();
+});
