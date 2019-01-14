@@ -2,20 +2,19 @@
 
 const canvas = document.querySelector('#hangman');
 const ctx = canvas.getContext('2d');
-
 ctx.strokeStyle = 'black';
 
 // Draw noose
 
 ctx.beginPath();
-ctx.moveTo(175, 125);
-ctx.lineTo(175, 75);
-ctx.lineTo(300, 75);
-ctx.lineTo(300, 350);
-ctx.lineTo(275, 375);
-ctx.moveTo(100, 375);
-ctx.lineTo(300, 375);
-ctx.lineTo(300, 350);
+ctx.moveTo(175, 75);
+ctx.lineTo(175, 25);
+ctx.lineTo(300, 25);
+ctx.lineTo(300, 300);
+ctx.lineTo(275, 325);
+ctx.moveTo(100, 325);
+ctx.lineTo(300, 325);
+ctx.lineTo(300, 300);
 ctx.stroke();
 
 // Hangman contingency flags
@@ -34,7 +33,7 @@ function drawHead() {
 		drawTorso();
 	}
 	ctx.beginPath();
-	ctx.arc(175, 145, 20, 0, 2 * Math.PI);
+	ctx.arc(175, 95, 20, 0, 2 * Math.PI);
 	ctx.stroke();
 	headDrawn = true;
 }
@@ -44,8 +43,8 @@ function drawTorso() {
 		drawArms();
 	}
 	ctx.beginPath();
-	ctx.moveTo(175, 165);
-	ctx.lineTo(175, 265);
+	ctx.moveTo(175, 115);
+	ctx.lineTo(175, 215);
 	ctx.stroke();
 	torsoDrawn = true;
 }
@@ -53,14 +52,14 @@ function drawTorso() {
 function drawArms() {
 	if (!arm1Drawn && !arm2Drawn) {
 		ctx.beginPath();
-		ctx.moveTo(175, 210);
-		ctx.lineTo(130, 175);
+		ctx.moveTo(175, 160);
+		ctx.lineTo(130, 125);
 		ctx.stroke();
 		arm1Drawn = true;
 	} else if (arm1Drawn && !arm2Drawn) {
 		ctx.beginPath();
-		ctx.moveTo(175, 210);
-		ctx.lineTo(220, 175);
+		ctx.moveTo(175, 160);
+		ctx.lineTo(220, 125);
 		ctx.stroke();
 		arm2Drawn = true;
 	} else if (arm1Drawn && arm2Drawn) {
@@ -71,14 +70,14 @@ function drawArms() {
 function drawLegs() {
 	if (!leg1Drawn) {
 		ctx.beginPath();
-		ctx.moveTo(175, 265);
-		ctx.lineTo(130, 300);
+		ctx.moveTo(175, 215);
+		ctx.lineTo(130, 250);
 		ctx.stroke();
 		leg1Drawn = true;
 	} else {
 		ctx.beginPath();
-		ctx.moveTo(175, 265);
-		ctx.lineTo(220, 300);
+		ctx.moveTo(175, 215);
+		ctx.lineTo(220, 250);
 		ctx.stroke();
 		bodyComplete = true;
 	}
@@ -88,7 +87,7 @@ function drawLegs() {
 
 const blankRow = document.querySelector('#wordRow');
 
-const words = ['dog', 'cat', 'boy', 'girl', 'puppy', 'hybrid', 'education'];
+const words = ['dog', 'river', 'sublime', 'query', 'cat', 'boy', 'girl', 'puppy', 'hybrid', 'education'];
 
 let randomWord = words[Math.floor(Math.random() * words.length)]
 	.split('');
@@ -103,8 +102,6 @@ for (let i = 0; i < randomWord.length; i++) {
 	blankRow.appendChild(blank);
 }
 
-//let blanks = document.querySelector('td[')
-
 // Guesses
 
 const guessButton = document.querySelector('#guessButton');
@@ -115,6 +112,7 @@ const header = document.querySelector('#guessHeader');
 const guessRow = document.querySelector('#guessRow')
 
 const guesses = [];
+
 
 // Retrieve User Guess Input
 
@@ -141,17 +139,21 @@ function retrieveLetter() {
 		guessInput.value = '';
 		return;
 	}
+
+	// Add guess to array
 	guesses.push(letter);
 	console.log(guesses);
 	guessInput.value = '';
 
 	// Add guess to table
+	let colspan = header.attributes[1].value;
+	colspan++;
+	header.setAttribute("colspan", `${colspan}`);
 	let guess = document.createElement('td');
 	guessRow.appendChild(guess);
 	guess.textContent = letter;
 
 	// Check if guess is correct
-
 	let correctCount = 0;
 	let blanks = document.querySelectorAll('td[data-count]');
 
@@ -170,8 +172,7 @@ function retrieveLetter() {
 		answerCheck.style.color = 'red';
 	}
 
-	// Alert results
-
+	// Alert results	
 	if (bodyComplete) {
 		answerCheck.textContent = 'You Lose!';
 	}
@@ -182,4 +183,12 @@ function retrieveLetter() {
 guessButton.addEventListener('click', function(e) {
 	e.preventDefault();
 	retrieveLetter();
+});
+
+// Reset Button
+
+const resetButton = document.querySelector('#reset');
+resetButton.addEventListener('click', function(e) {
+	e.preventDefault();
+	location.reload();
 });

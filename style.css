@@ -8,19 +8,44 @@ html {
 	text-align: center;
 }
 
-canvas {
-	display: fixed;
-}
+/* Header */
 
 #correct {
 	text-align: center;
-	display: block;
+	display: inline;
 }
+
+#reset {
+	margin-left: 2em;
+}
+
+canvas {
+	display: inline;
+}
+
+/* Guessed letters section */
+
+.guessedLetters {
+	display: inline-block;
+	margin-left: 65%;
+}
+
+#guessHeader {
+	text-align: center;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.guessedLetters td {
+	font-size: 1.5em;
+}
+
+/* Blanks */
 
 .wordBlanks {
 	text-align: center;
-	margin: 2em auto;
-	margin-top: 2em;
+	margin: .5em auto;
+	margin-bottom: .5em;
 }
 
 #wordRow td {
@@ -35,15 +60,17 @@ canvas {
 	border: none;
 }
 
+/* Guess input form */
+
 button {
 	padding: 1em;
 	border-radius: 5px;
-	margin: 1em 0;
 }
 
 label {
 	display: block;
 	margin: 0 auto;
+	font-size: 1.5em;
 }
 
 .alert {
@@ -69,11 +96,4 @@ input#guess {
 
 #guessButton:active {
 	background-color: red;
-}
-
-.guessedLetters {
-	text-align: right;
-	display: inline;
-	width: 25%;
-	margin-left: 75%;
 }
