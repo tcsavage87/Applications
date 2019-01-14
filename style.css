@@ -4,6 +4,7 @@
 }
 
 html {
+	background-color: lightgrey;
 	text-align: center;
 }
 
@@ -11,10 +12,27 @@ canvas {
 	display: fixed;
 }
 
+#correct {
+	text-align: center;
+	display: block;
+}
 
+.wordBlanks {
+	text-align: center;
+	margin: 2em auto;
+	margin-top: 2em;
+}
 
-#wordRow > td {
+#wordRow td {
 	text-decoration: underline;
+	border: 2px solid black;
+	height: 50px;
+	width: 50px;
+	font-size: 2.5em;
+}
+
+.filled {
+	border: none;
 }
 
 button {
@@ -30,7 +48,6 @@ label {
 
 .alert {
 	color: red;
-	text-decoration: underline;
 }
 
 input#guess {

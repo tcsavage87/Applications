@@ -1,36 +1,3 @@
-// Pull drawing buttons
-
-const headButton = document.querySelector('#headButton');
-const torsoButton = document.querySelector('#torsoButton');
-const armButton = document.querySelector('#armButton');
-const legButton = document.querySelector('#legButton');
-
-// Guesses
-
-const guessButton = document.querySelector('#guessButton');
-const guessInput = document.querySelector('#guess');
-const regex = new RegExp(/[A-Z]/);
-
-const header = document.querySelector('#guessHeader');
-const guessRow = document.querySelector('#guessRow')
-
-const guesses = [];
-
-//console.log(header[colspan])
-
-// Word Blanks
-
-const blankRow = document.querySelector('#wordRow');
-
-// Hangman contingency flags
-
-let headDrawn = false;
-let torsoDrawn = false;
-let arm1Drawn = false;
-let arm2Drawn = false;
-let leg1Drawn = false;
-let bodyComplete = false;
-
 // Canvas setup
 
 const canvas = document.querySelector('#hangman');
@@ -51,9 +18,21 @@ ctx.lineTo(300, 375);
 ctx.lineTo(300, 350);
 ctx.stroke();
 
+// Hangman contingency flags
+
+let headDrawn = false;
+let torsoDrawn = false;
+let arm1Drawn = false;
+let arm2Drawn = false;
+let leg1Drawn = false;
+let bodyComplete = false;
+
 // Drawing functions
 
 function drawHead() {
+	if (headDrawn) {
+		drawTorso();
+	}
 	ctx.beginPath();
 	ctx.arc(175, 145, 20, 0, 2 * Math.PI);
 	ctx.stroke();
@@ -61,7 +40,9 @@ function drawHead() {
 }
 
 function drawTorso() {
-	if (!headDrawn) return;
+	if (torsoDrawn) {
+		drawArms();
+	}
 	ctx.beginPath();
 	ctx.moveTo(175, 165);
 	ctx.lineTo(175, 265);
@@ -70,18 +51,20 @@ function drawTorso() {
 }
 
 function drawArms() {
-	if (!arm1Drawn) {
+	if (!arm1Drawn && !arm2Drawn) {
 		ctx.beginPath();
 		ctx.moveTo(175, 210);
 		ctx.lineTo(130, 175);
 		ctx.stroke();
 		arm1Drawn = true;
-	} else {
+	} else if (arm1Drawn && !arm2Drawn) {
 		ctx.beginPath();
 		ctx.moveTo(175, 210);
 		ctx.lineTo(220, 175);
 		ctx.stroke();
 		arm2Drawn = true;
+	} else if (arm1Drawn && arm2Drawn) {
+		drawLegs();
 	}
 }
 
@@ -101,15 +84,37 @@ function drawLegs() {
 	}
 }
 
-// Build out blanks and assign word
+// Word Blank build out
 
-const words = ['dog', 'cat', 'boy', 'girl'];
-let randomWord = words[Math.floor(Math.random() * words.length)];
-console.log(randomWord.split(''));
+const blankRow = document.querySelector('#wordRow');
+
+const words = ['dog', 'cat', 'boy', 'girl', 'puppy', 'hybrid', 'education'];
+
+let randomWord = words[Math.floor(Math.random() * words.length)]
+	.split('');
+
+console.log(randomWord);
+
 for (let i = 0; i < randomWord.length; i++) {
+	randomWord[i] = randomWord[i].toUpperCase();
 	console.log(randomWord[i]);
 	let blank = document.createElement('td');
+	blank.setAttribute("data-count", randomWord[i]);
+	blankRow.appendChild(blank);
 }
+
+//let blanks = document.querySelector('td[')
+
+// Guesses
+
+const guessButton = document.querySelector('#guessButton');
+const guessInput = document.querySelector('#guess');
+const regex = new RegExp(/[A-Z]/);
+
+const header = document.querySelector('#guessHeader');
+const guessRow = document.querySelector('#guessRow')
+
+const guesses = [];
 
 // Retrieve User Guess Input
 
@@ -117,6 +122,8 @@ function retrieveLetter() {
 	let label = document.querySelector('label');
 	label.classList.remove('alert');
 	label.textContent = 'Guess a letter!';
+	let answerCheck = document.querySelector('#correct');
+
 	let letter = guessInput.value.toUpperCase();
 
 	// Validate input as alpha
@@ -142,14 +149,33 @@ function retrieveLetter() {
 	let guess = document.createElement('td');
 	guessRow.appendChild(guess);
 	guess.textContent = letter;
+
+	// Check if guess is correct
+
+	let correctCount = 0;
+	let blanks = document.querySelectorAll('td[data-count]');
+
+	if (randomWord.includes(letter)) {
+		blanks.forEach(blank => {
+			if (blank.dataset.count === letter) {
+				blank.textContent = letter;
+				answerCheck.textContent = 'Correct!';
+				answerCheck.style.color = 'green';
+				blank.style.border = 'none';
+			}
+		});
+	} else {
+		drawHead();
+		answerCheck.textContent = 'Incorrect!';
+		answerCheck.style.color = 'red';
+	}
+
+	// Alert results
+
+	if (bodyComplete) {
+		answerCheck.textContent = 'You Lose!';
+	}
 }
-
-// Drawing button Event listeners
-
-headButton.addEventListener('click', drawHead);
-torsoButton.addEventListener('click', drawTorso);
-armButton.addEventListener('click', drawArms);
-legButton.addEventListener('click', drawLegs);
 
 // Guess button listener
 

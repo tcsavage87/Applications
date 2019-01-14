@@ -9,16 +9,12 @@
 	<div class="hangman">
 		<canvas id="hangman" width="400" height="400"></canvas>
 	</div>
+	<h2 id="correct" class="showing">Ready to play?</h2>
 	<table class="wordBlanks">
 		<tr id="wordRow">
 		</tr>
 	</table>
-	<div id="buttons">
-		<button id="headButton">Draw Head</button>
-		<button id="torsoButton">Draw Torso</button>
-		<button id="armButton">Draw Arm</button>
-		<button id="legButton">Draw Leg</button>
-	</div>
+	
 	<div id="guesses">
 		<form name="letterInput" id="letterForm">
 			<label for="guess" id="guessPrompt">Guess a letter!</label>
@@ -31,8 +27,9 @@
 					<th>Guessed Letters</th>
 				</tr>
 			</thead>
-			<tr id="guessRow">
-			</tr>
+			<tbody>
+				<tr id="guessRow"></tr>
+			</tbody>
 		</table>
 	</div>
 	<script type="text/javascript" src="script.js"></script>
