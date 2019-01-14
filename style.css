@@ -1,0 +1,23 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+html {
+	text-align: center;
+}
+
+
+
+button {
+	padding: 1em;
+	border-radius: 5px;
+	margin: 0 auto;
+	margin: 1em 0;
+}
+
+
+#wordRow > td {
+	text-decoration: underline;
+}

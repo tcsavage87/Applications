@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Hangman Game</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="hangman">
+		<canvas id="hangman" width="400" height="400"></canvas>
+	</div>
+	<table class="wordBlanks">
+		<tr id="wordRow">
+		</tr>
+	</table>
+	<button id="headButton">Draw Head</button>
+	<button id="torsoButton">Draw Torso</button>
+	<button id="armButton">Draw Arm</button>
+	<button id="legButton">Draw Leg</button>
+	<form name="letterInput" id="letterForm">
+		<input type="text" name="letter" placeholder="Guess a letter!">
+		<button id="guessLetter">Guess</button>
+	</form>
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>

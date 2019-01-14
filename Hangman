@@ -1,0 +1,24 @@
+0. HTML buildout
+	.Hangman's noose
+	.Button - click to play!
+	.Blank spaces
+	.Hangman parts - head, torso, 2 arms, 2 legs
+	.Letter input box
+	.Guess button
+	.Guessed letters section (strike-through)
+
+1. CSS
+	.Set elements display to none
+
+2. Functionality
+	.array - contains n words
+	.onClick - computer randomly selects word from array
+		- depending on length of word, computer constructs blank spaces according 		to number of letters
+	.onGuess - check if letter is contained within word
+		--> If contained, display letter in appropriate place
+		--> If not contained, display letter in guessed section, build out next 		piece of hangman (contingent if statements)
+		--> If already guessed, display error message (already guessed letters 			should be added to array
+		--> If hangman is completed - display you LOSE
+		
+
+
