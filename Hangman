@@ -11,7 +11,7 @@
 
 2. Functionality
 	.array - contains n words
-	.onClick - computer randomly selects word from array
+	.onLoad - computer randomly selects word from array
 		- depending on length of word, computer constructs blank spaces according 		to number of letters
 	.onGuess - check if letter is contained within word
 		--> If contained, display letter in appropriate place

@@ -3,6 +3,7 @@
 const canvas = document.querySelector('#hangman');
 const ctx = canvas.getContext('2d');
 ctx.strokeStyle = 'black';
+ctx.lineWidth = 4;
 
 // Draw noose
 
@@ -50,7 +51,7 @@ function drawTorso() {
 }
 
 function drawArms() {
-	if (!arm1Drawn && !arm2Drawn) {
+	if (!arm1Drawn) {
 		ctx.beginPath();
 		ctx.moveTo(175, 160);
 		ctx.lineTo(130, 125);
@@ -87,16 +88,13 @@ function drawLegs() {
 
 const blankRow = document.querySelector('#wordRow');
 
-const words = ['dog', 'river', 'sublime', 'query', 'cat', 'boy', 'girl', 'puppy', 'hybrid', 'education'];
+const words = ['acres','adult','advice','arrangement','attempt','August','Autumn','border','breeze','brick','calm','canal','cast','chose','claws','coach','constantly','contrast','cookies','customs','damage','deeply','depth','discussion','doll','donkey','essential','exchange','exist','explanation','facing','film','finest','fireplace','floating','folks','fort','garage','grandmother','habit','heading','image','independent','instant','kids','label','lungs','mathematics','melted','memory','mill','mission','monkey','mysterious','neighborhood','nuts','occasionally','official','palace','plates','poetry','policeman','positive','possibly','practical','pride','promise','recall','relationship','remarkable','require','rhyme','rocky','rush','sale','satellites','satisfied','scared','selection','shake','shallow','shout','silly','simplest','slight','slip','slope','soap','solar','species','spin','stiff','swung','tales','thumb','tobacco','toy','trap','treated','tune','university','vapor','vessels','wealth','wolf','zoo'];
 
 let randomWord = words[Math.floor(Math.random() * words.length)]
 	.split('');
 
-console.log(randomWord);
-
 for (let i = 0; i < randomWord.length; i++) {
 	randomWord[i] = randomWord[i].toUpperCase();
-	console.log(randomWord[i]);
 	let blank = document.createElement('td');
 	blank.setAttribute("data-count", randomWord[i]);
 	blankRow.appendChild(blank);
@@ -108,6 +106,7 @@ const guessButton = document.querySelector('#guessButton');
 const guessInput = document.querySelector('#guess');
 const regex = new RegExp(/[A-Z]/);
 
+const guessTable = document.querySelector('.guessedLetters');
 const header = document.querySelector('#guessHeader');
 const guessRow = document.querySelector('#guessRow')
 
@@ -115,6 +114,7 @@ const guesses = [];
 
 
 // Retrieve User Guess Input
+let correctCount = 0;
 
 function retrieveLetter() {
 	let label = document.querySelector('label');
@@ -149,12 +149,25 @@ function retrieveLetter() {
 	let colspan = header.attributes[1].value;
 	colspan++;
 	header.setAttribute("colspan", `${colspan}`);
+
 	let guess = document.createElement('td');
-	guessRow.appendChild(guess);
-	guess.textContent = letter;
+	let newRow = document.createElement('tr');
+
+	if (guesses.length < 11) {
+		guessRow.appendChild(guess);
+		guess.textContent = letter;
+	} else if (guesses.length === 11) {
+		newRow.setAttribute("id", "newRow");
+		guessTable.appendChild(newRow);
+		newRow.appendChild(guess);
+		guess.textContent = letter;
+
+	} else if (guesses.length > 11) {
+		document.querySelector('#newRow').appendChild(guess);
+		guess.textContent = letter;
+	}
 
 	// Check if guess is correct
-	let correctCount = 0;
 	let blanks = document.querySelectorAll('td[data-count]');
 
 	if (randomWord.includes(letter)) {
@@ -164,29 +177,34 @@ function retrieveLetter() {
 				answerCheck.textContent = 'Correct!';
 				answerCheck.style.color = 'green';
 				blank.style.border = 'none';
+				correctCount++;
 			}
 		});
 	} else {
 		drawHead();
 		answerCheck.textContent = 'Incorrect!';
-		answerCheck.style.color = 'red';
+		answerCheck.style.color = '#B10000';
 	}
 
-	// Alert results	
-	if (bodyComplete) {
+	// Alert results
+	if (correctCount === randomWord.length) {
+		answerCheck.textContent = 'Congratulations - you win!';
+	} else if (bodyComplete) {
 		answerCheck.textContent = 'You Lose!';
+		for (let i = 0; i < randomWord.length; i++) {
+			blanks[i].textContent = randomWord[i];
+		}
 	}
+	console.log(correctCount);
 }
 
 // Guess button listener
-
 guessButton.addEventListener('click', function(e) {
 	e.preventDefault();
 	retrieveLetter();
 });
 
 // Reset Button
-
 const resetButton = document.querySelector('#reset');
 resetButton.addEventListener('click', function(e) {
 	e.preventDefault();

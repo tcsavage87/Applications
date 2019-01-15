@@ -4,30 +4,30 @@
 }
 
 html {
-	background-color: lightgrey;
+	background: url("Images/Western.jpeg") no-repeat center center fixed;
+	background-size: cover;
 	text-align: center;
 }
 
-/* Header */
+/* Hangman and Guesses */
 
-#correct {
-	text-align: center;
-	display: inline;
+.hangman {
+	display: flex;
+	flex-direction: row;
 }
 
-#reset {
-	margin-left: 2em;
+#left {
+	width: 35%;
 }
 
 canvas {
-	display: inline;
+	width: 40%;
 }
 
-/* Guessed letters section */
-
 .guessedLetters {
-	display: inline-block;
-	margin-left: 65%;
+	width: 25%;
+	margin-top: 5em;
+	margin-right: 2%;
 }
 
 #guessHeader {
@@ -38,6 +38,18 @@ canvas {
 
 .guessedLetters td {
 	font-size: 1.5em;
+}
+
+/* Evaluator and Reset */
+
+#correct {
+	text-align: center;
+	display: inline;
+}
+
+#reset {
+	margin-left: 2em;
+	font-size: .8em;
 }
 
 /* Blanks */
@@ -74,7 +86,7 @@ label {
 }
 
 .alert {
-	color: red;
+	color: #B10000;
 }
 
 input#guess {
