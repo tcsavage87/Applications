@@ -16,7 +16,7 @@
 	.onGuess - check if letter is contained within word
 		--> If contained, display letter in appropriate place
 		--> If not contained, display letter in guessed section, build out next 		piece of hangman (contingent if statements)
-		--> If already guessed, display error message (already guessed letters 			should be added to array
+		--> If already guessed, display error message -> already guessed letters 			should be added to array
 		--> If hangman is completed - display you LOSE
 		
 
