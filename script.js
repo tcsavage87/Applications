@@ -16,8 +16,9 @@ const submitButton = document.querySelector('#submit-button');
 const inputField = document.querySelector('#name');
 const result = document.querySelector('#result');
 
-const pirateFirstNames = ['Ahab', 'Bennie', 'Carlota', 'Denny'];
-const pirateLastNames = ['Ahoy', 'Baba', 'Coco', 'Doyle'];
+const pirateFirstNames = ['Ahab', 'Bartholomew', 'Calico', 'Denny', 'Edgar', 'Francis', 'Gunpowder', 'Hunter', 'Isabela', 'Jezebel', 'Kidd', 'Looselips', 'Mad Jack', 'Ned', 'One-eyed', 'Pete', 'Quinn', 'Rascal', 'Shipmate', 'Tippy', 'Ursula', 'Victor', 'Whitebeard', 'Xavier', 'Yellobeard', 'Zachariah'];
+
+const pirateLastNames = ['Ahoy', 'Barnacles', 'Curly', 'Doyle', 'Elliot', 'Fishhawk', 'Grubby', 'Hook', 'Ironhook', 'Jack', 'Kaine', 'Lobsterlegs', 'Mutiny', 'Nemo', "O'Patches", 'Pugwash', 'Quartermaster', 'Rattlebones', 'Scurvy', 'Teague', 'Underwater', 'Vicious', 'Whiskeybreath', 'Xbones', 'Youngblood', 'Zanzibar'];
 let pirateFirstName;
 let pirateLastName;
 
