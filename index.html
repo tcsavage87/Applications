@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Hangman Game</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="hangman">
+		<div id="left"></div>
+		<canvas id="hangman" width="425" height="400"></canvas>
+		<table class="guessedLetters">
+			<tr>
+				<td id="guessHeader" colspan="1">Guessed Letters</td>
+			</tr>
+			<tr id="guessRow">
+			</tr>
+		</table>
+	</div>
+	<h2 id="correct" class="showing">Ready to play?</h2>
+	<button id="reset">New Word</button>
+
+	<table class="wordBlanks">
+		<tr id="wordRow">
+		</tr>
+	</table>
+	
+	<div id="guesses">
+		<form name="letterInput" id="letterForm">
+			<label for="guess" id="guessPrompt">Guess a letter!</label>
+			<input id="guess" type="text" name="letter">
+			<button id="guessButton">Guess</button>
+		</form>
+
+	</div>
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>

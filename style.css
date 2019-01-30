@@ -1,0 +1,110 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	background: url("Images/Western.jpg") no-repeat center center fixed;
+	background-size: cover;
+	text-align: center;
+}
+
+/* Hangman and Guesses */
+
+.hangman {
+	display: flex;
+	flex-direction: row;
+}
+
+#left {
+	width: 35%;
+}
+
+canvas {
+	width: 40%;
+}
+
+.guessedLetters {
+	width: 25%;
+	margin-top: 5em;
+	margin-right: 2%;
+}
+
+#guessHeader {
+	text-align: center;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.guessedLetters td {
+	font-size: 1.5em;
+}
+
+/* Evaluator and Reset */
+
+#correct {
+	text-align: center;
+	display: inline;
+}
+
+#reset {
+	margin-left: 2em;
+	font-size: .8em;
+}
+
+/* Blanks */
+
+.wordBlanks {
+	text-align: center;
+	margin: .5em auto;
+}
+
+#wordRow td {
+	text-decoration: underline;
+	border: 2px solid black;
+	height: 50px;
+	width: 50px;
+	font-size: 2.5em;
+}
+
+.filled {
+	border: none;
+}
+
+/* Guess input form */
+
+button {
+	padding: 1em;
+	border-radius: 5px;
+}
+
+label {
+	display: block;
+	margin: 0 auto;
+	font-size: 1.5em;
+}
+
+.alert {
+	color: #B10000;
+}
+
+input#guess {
+	margin: .5em;
+	text-align: center;
+	font-size: 100%;
+	padding: 0;
+	height: 3em;
+	width: 3em;
+}
+
+#guessButton {
+	display: inline;
+	margin: 0 auto;
+	background-color: green;
+	font-size: 1em;
+	cursor: pointer;
+}
+
+#guessButton:active {
+	background-color: red;
+}
